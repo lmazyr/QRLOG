@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QR.LOG</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ICONES -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- QR CODE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- CODIGO DE BARRAS -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+
+    <!-- EXCEL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- MENU LATERAL -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h1>QR.LOG</h1>
+            <span>Logística Inteligente</span>
+
+        </div>
+
+        <button onclick="abrirTela('home')">
+            <i class="fa-solid fa-house"></i>
+            Início
+        </button>
+
+        <button onclick="abrirTela('qrSimples')">
+            <i class="fa-solid fa-qrcode"></i>
+            QR Simples
+        </button>
+
+        <button onclick="abrirTela('colaborador')">
+            <i class="fa-solid fa-user"></i>
+            Colaboradores
+        </button>
+
+        <button onclick="abrirTela('codigoBarras')">
+            <i class="fa-solid fa-barcode"></i>
+            Código de Barras
+        </button>
+
+        <button onclick="abrirTela('excel')">
+            <i class="fa-solid fa-file-excel"></i>
+            Importar Excel
+        </button>
+
+        <button onclick="abrirTela('config')">
+            <i class="fa-solid fa-gear"></i>
+            Configurações
+        </button>
+
+    </aside>
+
+    <!-- CONTEÚDO -->
+
+    <main class="content">
+
+        <!-- HOME -->
+
+        <section id="home" class="active">
+
+            <div class="card">
+
+                <h2>Bem-vindo ao QR.LOG</h2>
+
+                <p>
+                    Sistema corporativo para geração de QR Codes,
+                    etiquetas e códigos de barras.
+                </p>
+
+                <div class="atalhos">
+
+                    <button onclick="abrirTela('qrSimples')">
+                        🔳 QR Simples
+                    </button>
+
+                    <button onclick="abrirTela('colaborador')">
+                        👤 Colaborador
+                    </button>
+
+                    <button onclick="abrirTela('codigoBarras')">
+                        📦 Código de Barras
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QR SIMPLES -->
+
+        <section id="qrSimples">
+
+            <div class="card">
+
+                <h2>QR Code Simples</h2>
+
+                <input
+                    id="textoQR"
+                    placeholder="Digite um texto ou link">
+
+                <button onclick="gerarQR()">
+                    Gerar QR Code
+                </button>
+
+                <div id="qrcode"></div>
+
+                <div class="acoes">
+
+                    <button>
+                        💾 PNG
+                    </button>
+
+                    <button>
+                        📄 PDF
+                    </button>
+
+                    <button onclick="abrirImpressao()">
+                        🖨️ Imprimir
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COLABORADOR -->
+
+        <section id="colaborador">
+
+            <div class="card">
+
+                <h2>QR Login Colaborador</h2>
+
+                <input
+                    id="nome"
+                    placeholder="Nome">
+
+                <input
+                    id="loginUser"
+                    placeholder="Login">
+
+                <input
+                    id="senha"
+                    placeholder="Senha">
+
+                <button onclick="gerarCracha()">
+                    Gerar Crachá
+                </button>
+
+                <div id="cardColaborador">
+
+                    <h3 id="nomeCard"></h3>
+
+                    <div class="blocoQR">
+
+                        <span>LOGIN</span>
+
+                        <div id="qrLogin"></div>
+
+                    </div>
+
+                    <div class="blocoQR">
+
+                        <span>SENHA</span>
+
+                        <div id="qrSenha"></div>
+
+                    </div>
+
+                </div>
+
+                <div class="acoes">
+
+                    <button>
+                        💾 PNG
+                    </button>
+
+                    <button>
+                        📄 PDF
+                    </button>
+
+                    <button onclick="abrirImpressao()">
+                        🖨️ Imprimir
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CODIGO DE BARRAS -->
+
+        <section id="codigoBarras">
+
+            <div class="card">
+
+                <h2>Código de Barras</h2>
+
+                <input
+                    id="textoBarra"
+                    placeholder="Digite o código">
+
+                <button onclick="gerarBarra()">
+                    Gerar Código
+                </button>
+
+                <div class="barcode-container">
+
+                    <svg id="barcode"></svg>
+
+                </div>
+
+                <div class="acoes">
+
+                    <button>
+                        💾 PNG
+                    </button>
+
+                    <button>
+                        📄 PDF
+                    </button>
+
+                    <button onclick="abrirImpressao()">
+                        🖨️ Imprimir
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- IMPORTAR EXCEL -->
+
+        <section id="excel">
+
+            <div class="card">
+
+                <h2>Importação Excel</h2>
+
+                <input
+                    type="file"
+                    id="arquivoExcel"
+                    accept=".xlsx,.xls">
+
+                <button>
+                    📄 Importar Colaboradores
+                </button>
+
+                <button>
+                    🏷️ Importar Etiquetas
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONFIGURAÇÕES -->
+
+        <section id="config">
+
+            <div class="card">
+
+                <h2>Configurações</h2>
+
+                <div class="check">
+
+                    <label>
+                        <input type="checkbox" checked>
+                        Pode imprimir
+                    </label>
+
+                    <label>
+                        <input type="checkbox" checked>
+                        Pode importar Excel
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Pode excluir histórico
+                    </label>
+
+                    <label>
+                        <input type="checkbox" checked>
+                        Pode criar modelos
+                    </label>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- MODAL IMPRESSÃO -->
+
+    <div id="modalPrint">
+
+        <div class="print-box">
+
+            <h2>TIPO DE ETIQUETA</h2>
+
+            <label>
+                <input
+                    type="radio"
+                    name="print"
+                    checked>
+
+                18 x 5 cm
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="print">
+
+                10 x 5 cm
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="print">
+
+                5 x 8 cm (Crachá)
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="print">
+
+                A4 - Várias etiquetas
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="print">
+
+                Tamanho personalizado
+            </label>
+
+            <div class="btns-modal">
+
+                <button onclick="fecharImpressao()">
+                    Cancelar
+                </button>
+
+                <button onclick="window.print()">
+                    Imprimir
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

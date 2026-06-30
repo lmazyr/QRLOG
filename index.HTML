@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR LOG</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+</head>
+
+<body>
+
+    <button id="btnPrint" onclick="window.print()">
+        🖨️
+    </button>
+
+    <div class="container">
+
+        <!-- INÍCIO -->
+        <section id="inicio" class="active">
+            <h1>QR.LOG</h1>
+            <p>Sistema de geração de QR Codes e Código de Barras</p>
+
+            <button class="principal" onclick="abrirTela('menu')">
+                INICIAR
+            </button>
+        </section>
+
+        <!-- MENU -->
+        <section id="menu">
+
+            <h2>QR.LOG</h2>
+
+            <button onclick="abrirTela('simples')">
+                QR CODE SIMPLES
+            </button>
+
+            <button onclick="abrirTela('login')">
+                QR LOGIN COLABORADOR
+            </button>
+
+            <button onclick="abrirTela('barras')">
+                CÓDIGO DE BARRAS
+            </button>
+
+        </section>
+
+        <!-- QR SIMPLES -->
+        <section id="simples">
+
+            <h2>QR Code Simples</h2>
+
+            <input
+                id="textoQR"
+                type="text"
+                placeholder="Digite um texto ou link">
+
+            <button onclick="gerarQR()">
+                GERAR
+            </button>
+
+            <div id="qrcode"></div>
+
+            <button class="voltar" onclick="abrirTela('menu')">
+                ← Voltar
+            </button>
+
+        </section>
+
+        <!-- LOGIN -->
+        <section id="login">
+
+            <h2>QR Login Colaborador</h2>
+
+            <input id="nome" placeholder="Nome">
+
+            <input id="loginUser" placeholder="Login">
+
+            <input id="senha" placeholder="Senha">
+
+            <button onclick="gerarCracha()">
+                GERAR CRACHÁ
+            </button>
+
+            <div id="cardColaborador">
+
+                <h3 id="nomeCard"></h3>
+
+                <div class="blocoQR">
+                    <span>LOGIN</span>
+                    <div id="qrLogin"></div>
+                </div>
+
+                <div class="blocoQR">
+                    <span>SENHA</span>
+                    <div id="qrSenha"></div>
+                </div>
+
+            </div>
+
+            <button class="voltar" onclick="abrirTela('menu')">
+                ← Voltar
+            </button>
+
+        </section>
+
+        <!-- BARRAS -->
+        <section id="barras">
+
+            <h2>Código de Barras</h2>
+
+            <input
+                id="textoBarra"
+                placeholder="Digite o texto">
+
+            <button onclick="gerarBarra()">
+                GERAR
+            </button>
+
+            <div class="barcode-box">
+                <svg id="barcode"></svg>
+            </div>
+
+            <button class="voltar" onclick="abrirTela('menu')">
+                ← Voltar
+            </button>
+
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
